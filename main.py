@@ -1,6 +1,5 @@
 import requests
 import discord
-from model import get_class
 import numpy as np
 from discord.ext import commands
 import webserver
@@ -65,17 +64,6 @@ async def raiz(ctx,n1:int):
 async def exp(ctx,n1:int, n2: int):
     resultado_exp = n1**n2
     await ctx.send(f"el numero {n1} elevado a la {n2} es {resultado_exp}")
-
-@bot.command()
-async def check(ctx):
-    if ctx.message.attachments:
-        for attachment in ctx.message.attachments:
-            file_name = attachment.filename
-            file_url = attachment.url
-            await attachment.save(f"./{attachment.filename}")
-            await ctx.send(get_class(model_path="./keras_model.h5", labels_path="labels.txt", image_path=f"./{attachment.filename}"))
-    else:
-        await ctx.send("You forgot to upload the image :(")
         
 webserver.keep_alive()
 bot.run(DISCORD_TOKEN)
